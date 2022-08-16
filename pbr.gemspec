@@ -3,20 +3,20 @@ require_relative 'lib/pbr/version'
 Gem::Specification.new do |spec|
   spec.name          = "pbr"
   spec.version       = Pbr::VERSION
-  spec.authors       = ["sean.sullivan"]
-  spec.email         = ["sean.sullivan@beatport.com"]
+  spec.authors       = ["Sean M. Sullivan"]
+  spec.email         = ["sean@tgwconsulting.co"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Library that makes access to the ProductBoard API simple.}
+  spec.description   = %q{This library provides developers a simplified approach to using the ProductBoard API to build your own applications.}
+  spec.homepage      = "https://github.com/arktos65/pbr"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/arktos65/pbr"
+  spec.metadata["changelog_uri"] = "https://github.com/arktos65/pbr/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
