@@ -32,7 +32,7 @@ module ProductBoard
     attr_accessor :deleted
 
     # The hash of attributes belonging to this instance.  An exact
-    # representation of the JSON returned from the JIRA API
+    # representation of the JSON returned from the ProductBoard API
     attr_accessor :attrs
 
     alias expanded? expanded
@@ -85,7 +85,7 @@ module ProductBoard
 
     # Returns the name of this resource for use in URL components.
     # E.g.
-    #   JIRA::Resource::Issue.endpoint_name
+    #   ProductBoard::Resource::Issue.endpoint_name
     #     # => issue
     def self.endpoint_name
       name.split('::').last.downcase
@@ -124,9 +124,9 @@ module ProductBoard
     end
 
     # Declares that this class contains a singular instance of another resource
-    # within the JSON returned from the JIRA API.
+    # within the JSON returned from the ProductBoard API.
     #
-    #   class Example < JIRA::Base
+    #   class Example < ProductBoard::Base
     #     has_one :child
     #   end
     #
@@ -147,11 +147,11 @@ module ProductBoard
     #                     has_one :child, :attribute_key => 'kid' # => {"id":"123",{"kid":{"id":"456"}}}
     #
     # [:class]          The class of the child instance will be inferred from the name of the
-    #                   relationship. E.g. <tt>has_one :child</tt> will return a <tt>JIRA::Resource::Child</tt>.
+    #                   relationship. E.g. <tt>has_one :child</tt> will return a <tt>ProductBoard::Resource::Child</tt>.
     #                   Use this option to override the inferred class.
     #
-    #                     has_one :child, :class => JIRA::Resource::Kid
-    # [:nested_under]   In some cases, the JSON return from JIRA is nested deeply for particular
+    #                     has_one :child, :class => ProductBoard::Resource::Kid
+    # [:nested_under]   In some cases, the JSON return from ProductBoard is nested deeply for particular
     #                   relationships.  This option allows the nesting to be specified.
     #
     #                     # Specify a single depth of nesting.
@@ -162,7 +162,7 @@ module ProductBoard
     #                       # => Looks for {"foo":{"bar":{"baz":{"child":{}}}}}
     def self.has_one(resource, options = {})
       attribute_key = options[:attribute_key] || resource.to_s
-      child_class = options[:class] || ('JIRA::Resource::' + resource.to_s.classify).constantize
+      child_class = options[:class] || ('ProductBoard::Resource::' + resource.to_s.classify).constantize
       define_method(resource) do
         attribute = maybe_nested_attribute(attribute_key, options[:nested_under])
         return nil unless attribute
@@ -171,7 +171,7 @@ module ProductBoard
     end
 
     # Declares that this class contains a collection of another resource
-    # within the JSON returned from the JIRA API.
+    # within the JSON returned from the ProductBoard API.
     #
     #   class Example < ProductBoard::Base
     #     has_many :children
@@ -197,12 +197,12 @@ module ProductBoard
     #
     # [:class]          The class of the child instance will be inferred from the name of the
     #                   relationship. E.g. <tt>has_many :children</tt> will return an instance
-    #                   of <tt>JIRA::Resource::HasManyProxy</tt> containing the collection of
-    #                   <tt>JIRA::Resource::Child</tt>.
+    #                   of <tt>ProductBoard::Resource::HasManyProxy</tt> containing the collection of
+    #                   <tt>ProductBoard::Resource::Child</tt>.
     #                   Use this option to override the inferred class.
     #
-    #                     has_many :children, :class => JIRA::Resource::Kid
-    # [:nested_under]   In some cases, the JSON return from JIRA is nested deeply for particular
+    #                     has_many :children, :class => ProductBoard::Resource::Kid
+    # [:nested_under]   In some cases, the JSON return from ProductBoard is nested deeply for particular
     #                   relationships.  This option allows the nesting to be specified.
     #
     #                     # Specify a single depth of nesting.
@@ -213,7 +213,7 @@ module ProductBoard
     #                       # => Looks for {"foo":{"bar":{"baz":{"children":{}}}}}
     def self.has_many(collection, options = {})
       attribute_key = options[:attribute_key] || collection.to_s
-      child_class = options[:class] || ('JIRA::Resource::' + collection.to_s.classify).constantize
+      child_class = options[:class] || ('ProductBoard::Resource::' + collection.to_s.classify).constantize
       self_class_basename = name.split('::').last.downcase.to_sym
       define_method(collection) do
         child_class_options = { self_class_basename => self }
@@ -248,7 +248,7 @@ module ProductBoard
     end
 
     # Returns a symbol for the given instance, for example
-    # JIRA::Resource::Issue returns :issue
+    # ProductBoard::Resource::Issue returns :issue
     def to_sym
       self.class.endpoint_name.to_sym
     end
@@ -295,7 +295,7 @@ module ProductBoard
       path_component
     end
 
-    # Fetches the attributes for the specified resource from JIRA unless
+    # Fetches the attributes for the specified resource from ProductBoard unless
     # the resource is already expanded and the optional force reload flag
     # is not set
     def fetch(reload = false, query_params = {})
@@ -306,10 +306,10 @@ module ProductBoard
     end
 
     # Saves the specified resource attributes by sending either a POST or PUT
-    # request to JIRA, depending on resource.new_record?
+    # request to ProductBoard, depending on resource.new_record?
     #
     # Accepts an attributes hash of the values to be saved.  Will throw a
-    # JIRA::HTTPError if the request fails (response is not HTTP 2xx).
+    # ProductBoard::HTTPError if the request fails (response is not HTTP 2xx).
     def save!(attrs, path = nil)
       path ||= new_record? ? url : patched_url
       http_method = new_record? ? :post : :put
@@ -321,7 +321,7 @@ module ProductBoard
     end
 
     # Saves the specified resource attributes by sending either a POST or PUT
-    # request to JIRA, depending on resource.new_record?
+    # request to ProductBoard, depending on resource.new_record?
     #
     # Accepts an attributes hash of the values to be saved. Will return false
     # if the request fails.
@@ -330,7 +330,7 @@ module ProductBoard
         save_status = save!(attrs, path)
       rescue ProductBoard::HTTPError => exception
         begin
-          set_attrs_from_response(exception.response) # Merge error status generated by JIRA REST API
+          set_attrs_from_response(exception.response) # Merge error status generated by ProductBoard REST API
         rescue JSON::ParserError => parse_exception
           set_attrs('exception' => {
             'class' => exception.response.class.name,
@@ -344,7 +344,7 @@ module ProductBoard
       save_status
     end
 
-    # Sets the attributes hash from a HTTPResponse object from JIRA if it is
+    # Sets the attributes hash from a HTTPResponse object from ProductBoard if it is
     # not nil or is not a json response.
     def set_attrs_from_response(response)
       unless response.body.nil? || (response.body.length < 2)
@@ -373,7 +373,7 @@ module ProductBoard
       end
     end
 
-    # Sends a delete request to the JIRA Api and sets the deleted instance
+    # Sends a delete request to the ProductBoard Api and sets the deleted instance
     # variable on the object to true.
     def delete
       client.delete(url)
@@ -405,7 +405,7 @@ module ProductBoard
     # This method fixes issue that there is no / prefix in url. It is happened when we call for instance
     # Looks like this issue is actual only in case if you use atlassian sdk your app path is not root (like /jira in example below)
     # issue.save() for existing resource.
-    # As a result we got error 400 from JIRA API:
+    # As a result we got error 400 from ProductBoard API:
     # [07/Jun/2015:15:32:19 +0400] "PUT jira/rest/api/2/issue/10111 HTTP/1.1" 400 -
     # After applying this fix we have normal response:
     # [07/Jun/2015:15:17:18 +0400] "PUT /jira/rest/api/2/issue/10111 HTTP/1.1" 204 -

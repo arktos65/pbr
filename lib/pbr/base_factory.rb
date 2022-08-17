@@ -1,4 +1,4 @@
-module JIRA
+module ProductBoard
   # This is the base class for all the ProductBoard resource factory instances.
   class BaseFactory
     attr_reader :client
