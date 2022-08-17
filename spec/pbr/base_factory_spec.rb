@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProductBoard::BaseFactory do
-  class ProductBoard::Resource::FooFactory < JIRA::BaseFactory; end
+  class ProductBoard::Resource::FooFactory < ProductBoard::BaseFactory; end
   class ProductBoard::Resource::Foo; end
 
   let(:client)  { double }
