@@ -117,8 +117,8 @@ module ProductBoard
       @cache = OpenStruct.new
     end
 
-    def Feature # :nodoc:
-      ProductBoard::Resource::FeatureFactory.new(self)
+    def Features # :nodoc:
+      ProductBoard::Resource::FeaturesFactory.new(self)
     end
 
     def Version # :nodoc:

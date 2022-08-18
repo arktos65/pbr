@@ -10,7 +10,7 @@ require 'pbr/base'
 require 'pbr/base_factory'
 require 'pbr/http_error'
 
-require 'pbr/resource/feature'
+require 'pbr/resource/features'
 require 'pbr/resource/version'
 
 require 'pbr/request_client'

@@ -12,6 +12,6 @@ options = {
 
 client = ProductBoard::Client.new(options)
 
-features = client.Feature.all
+features = client.Features.all
 
 puts features
