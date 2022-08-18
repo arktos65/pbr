@@ -8,11 +8,13 @@ end
 
 require 'pbr/base'
 require 'pbr/base_factory'
-require 'pbr/client'
-require 'pbr/request_client'
-require 'pbr/http_client'
 require 'pbr/http_error'
-require 'pbr/version'
 
 require 'pbr/resource/feature'
 require 'pbr/resource/version'
+
+require 'pbr/request_client'
+require 'pbr/http_client'
+require 'pbr/client'
+
+require 'jira/railtie' if defined?(Rails)

@@ -4,6 +4,8 @@ require 'cgi/cookie'
 require 'uri'
 
 module ProductBoard
+  # This class provides an HTTP style client supporting basic auth and
+  # bearer tokens in authorization header.
   class HttpClient < RequestClient
     DEFAULT_OPTIONS = {
       username: nil,
@@ -16,13 +18,6 @@ module ProductBoard
       @options = DEFAULT_OPTIONS.merge(options)
       @cookies = {}
     end
-
-    # def make_cookie_auth_request
-    #   body = { username: @options[:username].to_s, password: @options[:password].to_s }.to_json
-    #   @options.delete(:username)
-    #   @options.delete(:password)
-    #   make_request(:post, @options[:context_path] + '/rest/auth/1/session', body, 'Content-Type' => 'application/json')
-    # end
 
     def make_request(http_method, url, body = '', headers = {})
       # When a proxy is enabled, Net::HTTP expects that the request path omits the domain name
