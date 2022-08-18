@@ -139,124 +139,12 @@ module ProductBoard
       @cache = OpenStruct.new
     end
 
-    def Project # :nodoc:
-      JIRA::Resource::ProjectFactory.new(self)
-    end
-
-    def Issue # :nodoc:
-      JIRA::Resource::IssueFactory.new(self)
-    end
-
-    def Filter # :nodoc:
-      JIRA::Resource::FilterFactory.new(self)
-    end
-
-    def Component # :nodoc:
-      JIRA::Resource::ComponentFactory.new(self)
-    end
-
-    def User # :nodoc:
-      JIRA::Resource::UserFactory.new(self)
-    end
-
-    def Issuetype # :nodoc:
-      JIRA::Resource::IssuetypeFactory.new(self)
-    end
-
-    def Priority # :nodoc:
-      JIRA::Resource::PriorityFactory.new(self)
-    end
-
-    def Status # :nodoc:
-      JIRA::Resource::StatusFactory.new(self)
-    end
-
-    def Resolution # :nodoc:
-      JIRA::Resource::ResolutionFactory.new(self)
-    end
-
-    def Comment # :nodoc:
-      JIRA::Resource::CommentFactory.new(self)
-    end
-
-    def Attachment # :nodoc:
-      JIRA::Resource::AttachmentFactory.new(self)
-    end
-
-    def Worklog # :nodoc:
-      JIRA::Resource::WorklogFactory.new(self)
+    def Feature # :nodoc:
+      ProductBoard::Resource::FeatureFactory.new(self)
     end
 
     def Version # :nodoc:
-      JIRA::Resource::VersionFactory.new(self)
-    end
-
-    def Transition # :nodoc:
-      JIRA::Resource::TransitionFactory.new(self)
-    end
-
-    def Field # :nodoc:
-      JIRA::Resource::FieldFactory.new(self)
-    end
-
-    def Board
-      JIRA::Resource::BoardFactory.new(self)
-    end
-
-    def BoardConfiguration
-      JIRA::Resource::BoardConfigurationFactory.new(self)
-    end
-
-    def RapidView
-      JIRA::Resource::RapidViewFactory.new(self)
-    end
-
-    def Sprint
-      JIRA::Resource::SprintFactory.new(self)
-    end
-
-    def SprintReport
-      JIRA::Resource::SprintReportFactory.new(self)
-    end
-
-    def ServerInfo
-      JIRA::Resource::ServerInfoFactory.new(self)
-    end
-
-    def Createmeta
-      JIRA::Resource::CreatemetaFactory.new(self)
-    end
-
-    def ApplicationLink
-      JIRA::Resource::ApplicationLinkFactory.new(self)
-    end
-
-    def Watcher
-      JIRA::Resource::WatcherFactory.new(self)
-    end
-
-    def Webhook
-      JIRA::Resource::WebhookFactory.new(self)
-    end
-
-    def Issuelink
-      JIRA::Resource::IssuelinkFactory.new(self)
-    end
-
-    def Issuelinktype
-      JIRA::Resource::IssuelinktypeFactory.new(self)
-    end
-
-    def IssuePickerSuggestions
-      JIRA::Resource::IssuePickerSuggestionsFactory.new(self)
-    end
-
-    def Remotelink
-      JIRA::Resource::RemotelinkFactory.new(self)
-    end
-
-    def Agile
-      JIRA::Resource::AgileFactory.new(self)
+      ProductBoard::Resource::VersionFactory.new(self)
     end
 
     # HTTP methods without a body

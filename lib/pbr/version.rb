@@ -1,3 +1,3 @@
-module Pbr
-  VERSION = "0.1.0"
+module ProductBoard
+  VERSION = "0.1.0".freeze
 end

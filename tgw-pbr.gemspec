@@ -1,8 +1,8 @@
 require_relative 'lib/pbr/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "pbr"
-  spec.version       = Pbr::VERSION
+  spec.name          = "tgw-pbr"
+  spec.version       = ProductBoard::VERSION
   spec.authors       = ["Sean M. Sullivan"]
   spec.email         = ["sean@tgwconsulting.co"]
 
@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/arktos65/pbr"
-  spec.metadata["changelog_uri"] = "https://github.com/arktos65/pbr/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/arktos65/tgw-pbr"
+  spec.metadata["changelog_uri"] = "https://github.com/arktos65/tgw-pbr/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
