@@ -1,6 +1,7 @@
 require 'json'
 require 'forwardable'
 require 'ostruct'
+require 'openssl'
 
 module ProductBoard
   # This class is the main access point for all JIRA::Resource instances.
@@ -63,15 +64,7 @@ module ProductBoard
     DEFINED_OPTIONS = [
       :site,
       :context_path,
-      #:signature_method,
-      #:request_token_path,
-      #:authorize_path,
-      #:access_token_path,
-      #:private_key,
-      #:private_key_file,
       :rest_base_path,
-      #:consumer_key,
-      #:consumer_secret,
       :ssl_verify_mode,
       :ssl_version,
       :use_ssl,
@@ -85,28 +78,21 @@ module ProductBoard
       :use_cookies,
       :additional_cookies,
       :default_headers,
-      #:use_client_cert,
       :read_timeout,
       :http_debug,
-      #:issuer,
-      #:base_url,
-      :shared_secret,
-      #:cert_path,
-      #:key_path,
-      #:ssl_client_cert,
-      #:ssl_client_key
+      :shared_secret
     ].freeze
 
     DEFAULT_OPTIONS = {
       site: 'htts://api.productboard.com',
       context_path: '/',
-      rest_base_path: '/rest/api/2',
+      rest_base_path: '',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_PEER,
       use_ssl: true,
       auth_type: :basic,
       http_debug: false,
       use_cookies: false,
-      default_headers: {}
+      default_headers: {'X-Version' => '1'}
     }.freeze
 
     def initialize(options = {})
@@ -116,14 +102,6 @@ module ProductBoard
 
       unknown_options = options.keys.reject { |o| DEFINED_OPTIONS.include?(o) }
       raise ArgumentError, "Unknown option(s) given: #{unknown_options}" unless unknown_options.empty?
-
-      # if options[:use_client_cert]
-      #   @options[:ssl_client_cert] = OpenSSL::X509::Certificate.new(File.read(@options[:cert_path])) if @options[:cert_path]
-      #   @options[:ssl_client_key] = OpenSSL::PKey::RSA.new(File.read(@options[:key_path])) if @options[:key_path]
-      #
-      #   raise ArgumentError, 'Options: :cert_path or :ssl_client_cert must be set when :use_client_cert is true' unless @options[:ssl_client_cert]
-      #   raise ArgumentError, 'Options: :key_path or :ssl_client_key must be set when :use_client_cert is true' unless @options[:ssl_client_key]
-      # end
 
       case options[:auth_type]
       when :basic
