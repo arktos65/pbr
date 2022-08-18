@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pbr (0.1.0)
+    tgw-pbr (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -28,9 +28,9 @@ PLATFORMS
 
 DEPENDENCIES
   jwt (~> 2.4, >= 2.4.1)
-  pbr!
   rake (~> 12.0)
   rspec (~> 3.0)
+  tgw-pbr!
 
 BUNDLED WITH
    2.1.4

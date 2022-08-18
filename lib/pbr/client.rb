@@ -1,6 +1,7 @@
 require 'json'
 require 'forwardable'
 require 'ostruct'
+require 'openssl'
 
 module ProductBoard
   # This class is the main access point for all JIRA::Resource instances.
@@ -63,15 +64,7 @@ module ProductBoard
     DEFINED_OPTIONS = [
       :site,
       :context_path,
-      #:signature_method,
-      #:request_token_path,
-      #:authorize_path,
-      #:access_token_path,
-      #:private_key,
-      #:private_key_file,
       :rest_base_path,
-      #:consumer_key,
-      #:consumer_secret,
       :ssl_verify_mode,
       :ssl_version,
       :use_ssl,
@@ -85,28 +78,21 @@ module ProductBoard
       :use_cookies,
       :additional_cookies,
       :default_headers,
-      #:use_client_cert,
       :read_timeout,
       :http_debug,
-      #:issuer,
-      #:base_url,
-      :shared_secret,
-      #:cert_path,
-      #:key_path,
-      #:ssl_client_cert,
-      #:ssl_client_key
+      :shared_secret
     ].freeze
 
     DEFAULT_OPTIONS = {
       site: 'htts://api.productboard.com',
       context_path: '/',
-      rest_base_path: '/rest/api/2',
+      rest_base_path: '',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_PEER,
       use_ssl: true,
       auth_type: :basic,
       http_debug: false,
       use_cookies: false,
-      default_headers: {}
+      default_headers: {'X-Version' => '1'}
     }.freeze
 
     def initialize(options = {})
@@ -116,14 +102,6 @@ module ProductBoard
 
       unknown_options = options.keys.reject { |o| DEFINED_OPTIONS.include?(o) }
       raise ArgumentError, "Unknown option(s) given: #{unknown_options}" unless unknown_options.empty?
-
-      # if options[:use_client_cert]
-      #   @options[:ssl_client_cert] = OpenSSL::X509::Certificate.new(File.read(@options[:cert_path])) if @options[:cert_path]
-      #   @options[:ssl_client_key] = OpenSSL::PKey::RSA.new(File.read(@options[:key_path])) if @options[:key_path]
-      #
-      #   raise ArgumentError, 'Options: :cert_path or :ssl_client_cert must be set when :use_client_cert is true' unless @options[:ssl_client_cert]
-      #   raise ArgumentError, 'Options: :key_path or :ssl_client_key must be set when :use_client_cert is true' unless @options[:ssl_client_key]
-      # end
 
       case options[:auth_type]
       when :basic
@@ -139,124 +117,12 @@ module ProductBoard
       @cache = OpenStruct.new
     end
 
-    def Project # :nodoc:
-      JIRA::Resource::ProjectFactory.new(self)
-    end
-
-    def Issue # :nodoc:
-      JIRA::Resource::IssueFactory.new(self)
-    end
-
-    def Filter # :nodoc:
-      JIRA::Resource::FilterFactory.new(self)
-    end
-
-    def Component # :nodoc:
-      JIRA::Resource::ComponentFactory.new(self)
-    end
-
-    def User # :nodoc:
-      JIRA::Resource::UserFactory.new(self)
-    end
-
-    def Issuetype # :nodoc:
-      JIRA::Resource::IssuetypeFactory.new(self)
-    end
-
-    def Priority # :nodoc:
-      JIRA::Resource::PriorityFactory.new(self)
-    end
-
-    def Status # :nodoc:
-      JIRA::Resource::StatusFactory.new(self)
-    end
-
-    def Resolution # :nodoc:
-      JIRA::Resource::ResolutionFactory.new(self)
-    end
-
-    def Comment # :nodoc:
-      JIRA::Resource::CommentFactory.new(self)
-    end
-
-    def Attachment # :nodoc:
-      JIRA::Resource::AttachmentFactory.new(self)
-    end
-
-    def Worklog # :nodoc:
-      JIRA::Resource::WorklogFactory.new(self)
+    def Features # :nodoc:
+      ProductBoard::Resource::FeaturesFactory.new(self)
     end
 
     def Version # :nodoc:
-      JIRA::Resource::VersionFactory.new(self)
-    end
-
-    def Transition # :nodoc:
-      JIRA::Resource::TransitionFactory.new(self)
-    end
-
-    def Field # :nodoc:
-      JIRA::Resource::FieldFactory.new(self)
-    end
-
-    def Board
-      JIRA::Resource::BoardFactory.new(self)
-    end
-
-    def BoardConfiguration
-      JIRA::Resource::BoardConfigurationFactory.new(self)
-    end
-
-    def RapidView
-      JIRA::Resource::RapidViewFactory.new(self)
-    end
-
-    def Sprint
-      JIRA::Resource::SprintFactory.new(self)
-    end
-
-    def SprintReport
-      JIRA::Resource::SprintReportFactory.new(self)
-    end
-
-    def ServerInfo
-      JIRA::Resource::ServerInfoFactory.new(self)
-    end
-
-    def Createmeta
-      JIRA::Resource::CreatemetaFactory.new(self)
-    end
-
-    def ApplicationLink
-      JIRA::Resource::ApplicationLinkFactory.new(self)
-    end
-
-    def Watcher
-      JIRA::Resource::WatcherFactory.new(self)
-    end
-
-    def Webhook
-      JIRA::Resource::WebhookFactory.new(self)
-    end
-
-    def Issuelink
-      JIRA::Resource::IssuelinkFactory.new(self)
-    end
-
-    def Issuelinktype
-      JIRA::Resource::IssuelinktypeFactory.new(self)
-    end
-
-    def IssuePickerSuggestions
-      JIRA::Resource::IssuePickerSuggestionsFactory.new(self)
-    end
-
-    def Remotelink
-      JIRA::Resource::RemotelinkFactory.new(self)
-    end
-
-    def Agile
-      JIRA::Resource::AgileFactory.new(self)
+      ProductBoard::Resource::VersionFactory.new(self)
     end
 
     # HTTP methods without a body

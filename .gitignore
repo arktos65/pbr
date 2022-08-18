@@ -8,5 +8,8 @@
 /spec/reports/
 /tmp/
 
+# Ignore the gem build file
+/tgw-pbr-*.gem
+
 # rspec failure tracking
 .rspec_status

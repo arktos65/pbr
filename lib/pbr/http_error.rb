@@ -1,4 +1,5 @@
 require 'forwardable'
+
 module ProductBoard
   # This class provides a reusable component for handling HTTP errors.
   class HTTPError < StandardError
