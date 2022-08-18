@@ -90,7 +90,7 @@ module ProductBoard
       :http_debug,
       #:issuer,
       #:base_url,
-      #:shared_secret,
+      :shared_secret,
       #:cert_path,
       #:key_path,
       #:ssl_client_cert,
@@ -103,7 +103,7 @@ module ProductBoard
       rest_base_path: '/rest/api/2',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_PEER,
       use_ssl: true,
-      auth_type: :jwt,
+      auth_type: :basic,
       http_debug: false,
       use_cookies: false,
       default_headers: {}
@@ -126,12 +126,10 @@ module ProductBoard
       # end
 
       case options[:auth_type]
-      when :jwt
-        @request_client = JwtClient.new(@options)
       when :basic
         @request_client = HttpClient.new(@options)
       else
-        raise ArgumentError, 'Options: ":auth_type" must be ":jwt" or ":basic"'
+        raise ArgumentError, 'Options: ":auth_type" must be ":basic'
       end
 
       @http_debug = @options[:http_debug]
