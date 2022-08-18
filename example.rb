@@ -5,8 +5,9 @@ api_token = ENV['PRODUCTBOARD_API_KEY']
 
 options = {
   :site               => 'https://api.productboard.com',
-  :context_path       => '/',
+  :context_path       => '',
   :auth_type          => :basic,
+  :http_debug         => true,
   :default_headers    => { 'Authorization' =>  "Bearer #{api_token}"}
 }
 
