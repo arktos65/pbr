@@ -19,6 +19,8 @@ module ProductBoard
   #    client.Resource.find_by(params)
   #
   class Base
+    @DEBUG_MODE = true
+
     QUERY_PARAMS_FOR_SINGLE_FETCH = Set.new %i[expand fields]
     QUERY_PARAMS_FOR_SEARCH = Set.new %i[expand fields startAt maxResults]
 
