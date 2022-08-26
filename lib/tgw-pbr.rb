@@ -9,6 +9,7 @@ end
 require 'pbr/base'
 require 'pbr/base_factory'
 require 'pbr/http_error'
+require 'pbr/logging'
 
 require 'pbr/resource/features'
 require 'pbr/resource/version'

@@ -1,0 +1,5 @@
+# Gem configuration that can be edited by developer
+productboard:
+  debug_mode: true
+  http_logging: true
+  log_file: '/tmp/tgw-pbr.log'
