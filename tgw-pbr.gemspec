@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'jwt', '~> 2.4', '>= 2.4.1'
   spec.add_runtime_dependency 'multipart-post', '~> 2.2', '>= 2.2.3'
   spec.add_runtime_dependency 'oauth', '~> 0.5', '>= 0.5.0'
+  spec.add_runtime_dependency 'http_logger', '~> 0.7.0'
 
   # Development Dependencies
   spec.add_development_dependency 'guard', '~> 2.13', '>= 2.13.0'
