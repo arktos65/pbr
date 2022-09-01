@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   # Development Dependencies
   spec.add_development_dependency 'guard', '~> 2.13', '>= 2.13.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.6', '>= 4.6.5'
-  spec.add_development_dependency 'pry', '~> 0.10', '>= 0.10.3'
+  spec.add_development_dependency 'pry', '~> 0.14', '>= 0.14.1'
   spec.add_development_dependency 'railties', '~> 6.1', '>= 6.1.6'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.0', '>= 3.0.0'
