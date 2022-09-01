@@ -31,3 +31,8 @@ client = ProductBoard::Client.new(options)
 # GET all features from ProductBoard
 features = client.Features.all
 puts features
+puts
+puts "Enter feature id: "
+feature_id = gets
+feature = client.Features.find(feature_id)
+puts feature
