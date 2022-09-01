@@ -31,3 +31,7 @@ client = ProductBoard::Client.new(options)
 # GET all features from ProductBoard
 features = client.Features.all
 puts features
+
+# GET all components from ProductBoard
+components = client.Components.all
+puts components
