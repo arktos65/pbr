@@ -11,37 +11,20 @@ module ProductBoard
   #
   #   :site               => 'http://localhost:2990',
   #   :context_path       => '/jira',
-  #   NO :signature_method   => 'RSA-SHA1',
-  #   NO :request_token_path => "/plugins/servlet/oauth/request-token",
-  #   NO :authorize_path     => "/plugins/servlet/oauth/authorize",
-  #   NO :access_token_path  => "/plugins/servlet/oauth/access-token",
-  #   NO :private_key        => nil,
-  #   NO :private_key_file   => "rsakey.pem",
   #   :rest_base_path     => "/rest/api/2",
-  #   NO :consumer_key       => nil,
-  #   NO :consumer_secret    => nil,
   #   :ssl_verify_mode    => OpenSSL::SSL::VERIFY_PEER,
   #   :ssl_version        => nil,
   #   :use_ssl            => true,
-  #   NO :username           => nil,
-  #   NO :password           => nil,
-  #   :auth_type          => :jwt,
-  #   :jwt_token          => nil,
+  #   :auth_type          => :basic (only),
   #   :proxy_address      => nil,
   #   :proxy_port         => nil,
   #   :proxy_username     => nil,
   #   :proxy_password     => nil,
-  #   :use_cookies        => nil,
-  #   :additional_cookies => nil,
+  #   :use_cookies        => nil, (not supported)
+  #   :additional_cookies => nil, (not supported)
   #   :default_headers    => {},
-  #   NO :use_client_cert    => false,
   #   :read_timeout       => nil,
   #   :http_debug         => false,
-  #   NO :shared_secret      => nil,
-  #   NO :cert_path          => nil,
-  #   NO :key_path           => nil,
-  #   NO :ssl_client_cert    => nil,
-  #   NO :ssl_client_key     => nil
   #
   # See the JIRA::Base class methods for all of the available methods on these accessor
   # objects.
@@ -70,6 +53,7 @@ module ProductBoard
       :use_ssl,
       :username,
       :password,
+      :api_token,
       :auth_type,
       :proxy_address,
       :proxy_port,
@@ -84,7 +68,7 @@ module ProductBoard
     ].freeze
 
     DEFAULT_OPTIONS = {
-      site: 'htts://api.productboard.com',
+      site: 'https://api.productboard.com',
       context_path: '/',
       rest_base_path: '',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_PEER,
@@ -117,10 +101,12 @@ module ProductBoard
       @cache = OpenStruct.new
     end
 
+    # API hook to Features resource
     def Features # :nodoc:
       ProductBoard::Resource::FeaturesFactory.new(self)
     end
 
+    # API hook to Version resource
     def Version # :nodoc:
       ProductBoard::Resource::VersionFactory.new(self)
     end

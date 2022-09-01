@@ -9,7 +9,8 @@ module ProductBoard
   class HttpClient < RequestClient
     DEFAULT_OPTIONS = {
       username: nil,
-      password: nil
+      password: nil,
+
     }.freeze
 
     attr_reader :options

@@ -1,6 +1,7 @@
 require 'active_support/core_ext/string'
 require 'active_support/inflector'
 require 'set'
+require 'json'
 
 module ProductBoard
   # This class provides the foundational object and REST mapping for all ProductBoard::Resource
@@ -19,8 +20,6 @@ module ProductBoard
   #    client.Resource.find_by(params)
   #
   class Base
-    @DEBUG_MODE = true
-
     QUERY_PARAMS_FOR_SINGLE_FETCH = Set.new %i[expand fields]
     QUERY_PARAMS_FOR_SEARCH = Set.new %i[expand fields startAt maxResults]
 
@@ -66,6 +65,7 @@ module ProductBoard
       response = client.get(collection_path(client))
       json = parse_json(response.body)
       json = json[endpoint_name.pluralize] if collection_attributes_are_nested
+      json = flatten_map(json.keys[0], json)
       json.map do |attrs|
         new(client, { attrs: attrs }.merge(options))
       end
@@ -123,6 +123,11 @@ module ProductBoard
 
     def self.parse_json(string) # :nodoc:
       JSON.parse(string)
+    end
+
+    # Returns a flattened array of hashes nexted within the specified name.
+    def self.flatten_map(name, json)
+      json[name].flat_map
     end
 
     # Declares that this class contains a singular instance of another resource
@@ -246,7 +251,7 @@ module ProductBoard
     end
 
     def id
-      attrs['id']
+      :id
     end
 
     # Returns a symbol for the given instance, for example

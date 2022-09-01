@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "pbr"
+require "tgw-pbr"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
