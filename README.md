@@ -54,6 +54,8 @@ client = ProductBoard::Client.new(options)
 feature = client.Feature.find(id)
 ```
 
+See various code examples in the `examples` directory for more detail.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

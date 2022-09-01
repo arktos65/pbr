@@ -11,7 +11,7 @@ options = {
   :auth_type          => :basic,                  # :basic is the only valid value
   :http_debug         => true,                    # If true, adds additional info about verb and uri
   :default_headers    => {
-    'Authorization'   =>  "Bearer #{api_token}",  # Requires a JWT encoded token (see ProductBoard docs)
+    'Authorization'   => "Bearer #{api_token}",   # Requires a JWT encoded token (see ProductBoard docs)
     'X-Version'       => '1'                      # Required API version, otherwise PB ABI will throw error
   }
 }
@@ -31,7 +31,3 @@ client = ProductBoard::Client.new(options)
 # GET all features from ProductBoard
 features = client.Features.all
 puts features
-
-# GET all components from ProductBoard
-components = client.Components.all
-puts components
