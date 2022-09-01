@@ -106,6 +106,11 @@ module ProductBoard
       ProductBoard::Resource::FeaturesFactory.new(self)
     end
 
+    # API hook to Components resource
+    def Components # :nodoc:
+      ProductBoard::Resource::ComponentsFactory.new(self)
+    end
+
     # API hook to Version resource
     def Version # :nodoc:
       ProductBoard::Resource::VersionFactory.new(self)
