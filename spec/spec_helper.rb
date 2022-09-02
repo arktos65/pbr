@@ -1,14 +1,21 @@
-require "bundler/setup"
-require "tgw-pbr"
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'rubygems'
+require 'bundler/setup'
+require 'webmock/rspec'
+require 'pry'
+
+Dir['./spec/support/**/*.rb'].each { |f| require f }
+
+require 'tgw-pbr'
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = ".rspec_status"
+  config.extend ClientsHelper
+end
 
-  # Disable RSpec exposing methods globally on `Module` and `main`
-  config.disable_monkey_patching!
-
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
+def get_mock_response(file, value_if_file_not_found = false)
+  file.sub!('?', '_') # we have to replace this character on Windows machine
+  File.read(File.join(File.dirname(__FILE__), 'mock_responses/', file))
+rescue Errno::ENOENT => e
+  raise e if value_if_file_not_found == false
+  value_if_file_not_found
 end

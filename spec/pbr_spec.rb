@@ -1,9 +1,5 @@
-RSpec.describe Pbr do
+RSpec.describe ProductBoard do
   it "has a version number" do
-    expect(Pbr::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+    expect(ProductBoard::VERSION).not_to be nil
   end
 end
