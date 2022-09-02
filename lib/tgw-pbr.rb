@@ -10,13 +10,13 @@ require 'pbr/base'
 require 'pbr/base_factory'
 require 'pbr/http_error'
 require 'pbr/logging'
+require 'pbr/version'
 
 require 'pbr/resource/features'
 require 'pbr/resource/components'
-require 'pbr/resource/version'
 
 require 'pbr/request_client'
 require 'pbr/http_client'
 require 'pbr/client'
 
-require 'jira/railtie' if defined?(Rails)
+require 'pbr/railtie' if defined?(Rails)
