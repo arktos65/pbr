@@ -31,3 +31,9 @@ client = ProductBoard::Client.new(options)
 # GET all components from ProductBoard
 components = client.Components.all
 puts components
+puts
+# Get single component
+puts "Enter component id: "
+component_id = gets
+component = client.Components.find(component_id.chomp)
+puts component
