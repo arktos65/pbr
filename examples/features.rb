@@ -32,7 +32,8 @@ client = ProductBoard::Client.new(options)
 features = client.Features.all
 puts features
 puts
+# Get single feature
 puts "Enter feature id: "
 feature_id = gets
-feature = client.Features.find(feature_id)
+feature = client.Features.find(feature_id.chomp)
 puts feature
