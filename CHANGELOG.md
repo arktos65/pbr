@@ -8,3 +8,4 @@ This document describes the changes in each release of this Ruby gem project.
 - HTTP Client class facilitates network connectivity.
 - GET /features resources as an enumerable hash.
 - GET /components resources as an enumerable hash.
+- Reference source code in examples folder.

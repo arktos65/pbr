@@ -46,12 +46,13 @@ options = {
   :site               => 'https://api.productboard.com',
   :context_path       => '/',
   :auth_type          => :basic,
-  :default_headers    => { 'Authorization' =>  "Bearer #{api_token}"}
+  :default_headers    => { 'Authorization' =>  "Bearer #{api_token}",
+                           'X-Version' => '1'}
 }
 
 client = ProductBoard::Client.new(options)
 
-feature = client.Feature.find(id)
+features = client.Features.all
 ```
 
 See various code examples in the `examples` directory for more detail.
